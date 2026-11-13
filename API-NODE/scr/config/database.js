@@ -1,4 +1,4 @@
-const mysql = require("mysql12/promise");
+const mysql = require("mysql2/promise");
 require("dotenv").config();
 
 const conex = mysql.createPool({
@@ -6,8 +6,10 @@ const conex = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
+
     waitForConnections: true,
-    connetionLimit: 10
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
-module.exports
+module.exports = conex

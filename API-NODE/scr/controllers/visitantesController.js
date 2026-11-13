@@ -1,4 +1,4 @@
-const conexao = require("API-NODE/config/database.js");
+const conexao = require("../config/database");
 
 async function cadasVisitante(req, res){
     try{
@@ -9,10 +9,10 @@ async function cadasVisitante(req, res){
                 mensagem: "Nome e email sao obrigatorios."
             });
         }
-        const sql =
-        INSERT INTO visitantes (nome, email, tel)
-        VALUES (?, ?, ?)
-        ;
+        const sql = `
+            INSERT INTO visitantes (nome, email, tel)
+            VALUES (?, ?, ?)
+        `;
         
         const [resultado] = await conexao.execute(sql, [
             nome,
@@ -22,7 +22,7 @@ async function cadasVisitante(req, res){
         
         return res.status(201).json({
             mensagem: "Visitante cadastrado com sucesso!",
-            visitanteID: resultado.insertID
+            visitanteID: resultado.insertId
         });
     } catch (erro) {
         console.error(erro);
